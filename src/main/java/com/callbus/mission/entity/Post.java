@@ -5,12 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
+public class Post extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,15 +25,28 @@ public class Post {
     private String content;
 
     @Column
-    private Long LikeCount = 0L;
+    private Long likeCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="MEMBER_ID")
     private Member member;
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Like> likeList = new ArrayList<>();
 
-    public void update(PostDTO.Update updateDTO) {
+    public Post (PostDTO.Request.Create postDTO, Member member) {
+        this.title = postDTO.getTitle();
+        this.content = postDTO.getContent();
+        this.likeCount = 0L;
+        this.member = member;
+    }
+
+    public void update(PostDTO.Request.Update updateDTO) {
         this.title = updateDTO.getTitle();
         this.content = updateDTO.getContent();
+    }
+
+    public void updateLikeCount(Long likeCount) {
+        this.likeCount = likeCount;
     }
 }

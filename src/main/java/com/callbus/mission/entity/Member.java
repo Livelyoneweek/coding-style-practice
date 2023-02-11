@@ -1,5 +1,7 @@
 package com.callbus.mission.entity;
 
+import com.callbus.mission.dto.AccountType;
+import com.callbus.mission.dto.Quit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,9 +27,18 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false, length = 15)
     private String accountId;
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
     private Quit quit;
+
+    public Member(String nickName, AccountType accountType, String accountId,
+                  String password, Quit quit) {
+        this.nickName = nickName;
+        this.accountType = accountType;
+        this.accountId = accountId;
+        this.password = password;
+        this.quit = quit;
+    }
 }

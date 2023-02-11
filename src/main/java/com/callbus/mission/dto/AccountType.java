@@ -1,4 +1,4 @@
-package com.callbus.mission.entity;
+package com.callbus.mission.dto;
 
 /**
  * LESSOR : 임대인
