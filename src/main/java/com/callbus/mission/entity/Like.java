@@ -3,7 +3,6 @@ package com.callbus.mission.entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @Entity
@@ -24,5 +23,10 @@ public class Like extends BaseTimeEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POST_ID")
     private Post post;
+
+    public Like(Member member, Post post) {
+        this.member = member;
+        this.post = post;
+    }
 
 }

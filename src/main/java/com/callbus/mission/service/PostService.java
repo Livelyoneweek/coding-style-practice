@@ -54,7 +54,6 @@ public class PostService {
     }
 
     public List<PostDTO.Response.PostPage> changeDtos(Page<Post> postList,Long memberId) {
-//        List<PostDTO.Response.PostPage> postPageList = postList.stream().map(PostDTO.Response.PostPage::new).collect(Collectors.toList());
         return postList.stream()
                 .map(m -> PostDTO.Response.PostPage.builder()
                         .id(m.getId())

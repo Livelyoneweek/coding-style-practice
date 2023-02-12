@@ -23,7 +23,6 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         Member member = principal.getMember();
         response.setHeader("Authentication", String.valueOf(member.getAccountType())+" "+member.getId());
-        System.out.println("test1234");
     }
 
 }

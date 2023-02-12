@@ -34,7 +34,7 @@ public class Post extends BaseTimeEntity{
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Like> likeList = new ArrayList<>();
 
-    public Post (PostDTO.Request.Create postDTO, Member member) {
+    public Post (PostDTO.Request.Save postDTO, Member member) {
         this.title = postDTO.getTitle();
         this.content = postDTO.getContent();
         this.likeCount = 0L;

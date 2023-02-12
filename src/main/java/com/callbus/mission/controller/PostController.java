@@ -13,25 +13,20 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequiredArgsConstructor
 @Slf4j
+@RestController
+@RequiredArgsConstructor
 public class PostController {
 
     private final PostService postService;
 
-
     @GetMapping("/post")
     public ResponseEntity<?> findAll(@AuthenticationPrincipal PrincipalDetails userData,
-            @PageableDefault(page=0, size=10, sort="id", direction= Sort.Direction.DESC) Pageable pageable) {
+                                     @PageableDefault(page=0, size=10, sort="id", direction= Sort.Direction.DESC) Pageable pageable) {
         log.info("### PostController.findAll 실행");
 
         Page<Post> postList = postService.findAll(pageable);
@@ -45,8 +40,8 @@ public class PostController {
     }
 
     @PostMapping("/auth/post")
-    public ResponseEntity<?> save(PostDTO.Request.Create postDTO, @AuthenticationPrincipal PrincipalDetails userData) {
-        log.info("### PostController.create 실행");
+    public ResponseEntity<?> save(PostDTO.Request.Save postDTO, @AuthenticationPrincipal PrincipalDetails userData) {
+        log.info("### PostController.save 실행");
         log.info("accountId={}", userData.getUsername());
         log.info("postDTO={}", postDTO.toString());
 
@@ -66,13 +61,19 @@ public class PostController {
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 
-    @DeleteMapping("/auth/post")
-    public ResponseEntity<?> delete(PostDTO.Request.Delete postDTO, @AuthenticationPrincipal PrincipalDetails userData) {
+    @DeleteMapping("/auth/post/{id}")
+    public ResponseEntity<?> delete(@PathVariable(value = "id")Long id, @AuthenticationPrincipal PrincipalDetails userData) {
         log.info("### PostController.delete 실행");
         log.info("accountId={}", userData.getUsername());
 
-        postService.deleteById(postDTO.getId());
-        return new ResponseEntity<>("OK", HttpStatus.OK);
+        Post findPost = postService.findById(id);
+        if (findPost.getMember().getId().equals(userData.getMember().getId())) {
+            postService.deleteById(id);
+            return new ResponseEntity<>("OK", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("FAIL", HttpStatus.OK);
     }
 
 }
+
+

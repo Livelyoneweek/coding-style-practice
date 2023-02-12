@@ -66,11 +66,11 @@ public class TestDataController {
         if (useLimit == 1 && postLimit == 0) {
             Member member = memberService.findById(1L);
 
-            PostDTO.Request.Create postDto = new PostDTO.Request.Create("title", "content");
+            PostDTO.Request.Save postDto = new PostDTO.Request.Save("title", "content");
             Post post = new Post(postDto, member);
-            PostDTO.Request.Create postDto2 = new PostDTO.Request.Create("title2", "content2");
+            PostDTO.Request.Save postDto2 = new PostDTO.Request.Save("title2", "content2");
             Post post2 = new Post(postDto2, member);
-            PostDTO.Request.Create postDto3 = new PostDTO.Request.Create("title3", "content3");
+            PostDTO.Request.Save postDto3 = new PostDTO.Request.Save("title3", "content3");
             Post post3 = new Post(postDto3, member);
 
             postService.save(post);

@@ -1,6 +1,5 @@
 package com.callbus.mission.dto;
 
-import com.callbus.mission.entity.Post;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -12,7 +11,7 @@ public class PostDTO {
         @ToString
         @AllArgsConstructor
         @Getter
-        public static class Create {
+        public static class Save {
             @NotBlank
             private String title;
             @NotBlank
@@ -30,14 +29,6 @@ public class PostDTO {
             @NotBlank
             private String content;
         }
-
-        @ToString
-        @AllArgsConstructor
-        @Getter
-        public static class Delete {
-            @NotBlank
-            private Long id;
-        }
     }
 
     public static class Response{
@@ -53,16 +44,6 @@ public class PostDTO {
             private LocalDateTime createDate;
             private LocalDateTime modifiedDate;
             private boolean likeCheck;
-
-//            public PostPage(Post post) {
-//                this.id = post.getId();
-//                this.title = post.getTitle();
-//                this.content = post.getContent();
-//                this.likeCount = post.getLikeCount();
-//                this.createDate = post.getCreateDate();
-//                this.modifiedDate = post.getModifiedDate();
-//                this.likeCheck = false;
-//            }
         }
     }
 
