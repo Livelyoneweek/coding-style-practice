@@ -4,9 +4,13 @@ import com.callbus.mission.dto.PostDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -31,8 +35,8 @@ public class Post extends BaseTimeEntity{
     @JoinColumn(name="MEMBER_ID")
     private Member member;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Like> likeList = new ArrayList<>();
+    @OneToMany(mappedBy = "post",fetch = FetchType.LAZY)
+    private Set<Like> likeList = new LinkedHashSet<>();
 
     public Post (PostDTO.Request.Save postDTO, Member member) {
         this.title = postDTO.getTitle();

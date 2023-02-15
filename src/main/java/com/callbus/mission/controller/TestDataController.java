@@ -73,9 +73,29 @@ public class TestDataController {
             PostDTO.Request.Save postDto3 = new PostDTO.Request.Save("title3", "content3");
             Post post3 = new Post(postDto3, member);
 
+            PostDTO.Request.Save postDto4 = new PostDTO.Request.Save("title3", "content3");
+            Post post4 = new Post(postDto4, member);
+
+            PostDTO.Request.Save postDto5 = new PostDTO.Request.Save("title3", "content3");
+            Post post5 = new Post(postDto5, member);
+
+            PostDTO.Request.Save postDto6 = new PostDTO.Request.Save("title3", "content3");
+            Post post6 = new Post(postDto6, member);
+
+            PostDTO.Request.Save postDto7 = new PostDTO.Request.Save("title3", "content3");
+            Post post7 = new Post(postDto7, member);
+
+            PostDTO.Request.Save postDto8 = new PostDTO.Request.Save("title3", "content3");
+            Post post8 = new Post(postDto8, member);
+
             postService.save(post);
             postService.save(post2);
             postService.save(post3);
+            postService.save(post4);
+            postService.save(post5);
+            postService.save(post6);
+            postService.save(post7);
+            postService.save(post8);
 
             log.info("게시글 등록 완료");
             return new ResponseEntity<>(("OK"), HttpStatus.OK);

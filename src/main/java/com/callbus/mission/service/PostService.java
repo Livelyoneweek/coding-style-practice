@@ -1,6 +1,7 @@
 package com.callbus.mission.service;
 
 import com.callbus.mission.dto.PostDTO;
+import com.callbus.mission.entity.Like;
 import com.callbus.mission.entity.Post;
 import com.callbus.mission.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class PostService {
 
     private final PostRepository postRepository;
 
+    @Transactional(readOnly = true)
     public Page<Post> findAll(Pageable pageable) {
         return postRepository.findAll(pageable);
     }
@@ -52,6 +54,7 @@ public class PostService {
                         .build()
                 ).collect(Collectors.toList());
     }
+
 
     public List<PostDTO.Response.PostPage> changeDtos(Page<Post> postList,Long memberId) {
         return postList.stream()
