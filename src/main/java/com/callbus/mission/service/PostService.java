@@ -33,6 +33,7 @@ public class PostService {
         return postRepository.findById(id).orElseThrow(() -> new RuntimeException("해당 id가 없습니다"));
     }
 
+
     public void update(Post post, PostDTO.Request.Update updateDTO) {
         post.update(updateDTO);
     }
